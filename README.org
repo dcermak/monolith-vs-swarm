@@ -1,0 +1,19 @@
+* The Monolith versus The Swarm
+
+This repository contains the slides for the presentation "The Monolith versus
+The Swarm" held at Flock 2023.
+
+You can find the rendered slides here: [[https://dcermak.github.io/monolith-vs-swarm/monolith-vs-swarm.html][dcermak.github.io/monolith-vs-swarm]].
+
+
+** Building the slides
+
+You can create the html slides yourself from within Emacs by opening the
+[[./monolith-vs-swarm.org]] file, launching =org-mode= and executing ~(require
+'ox-reveal)~ (you might have to install =ox-reveal= beforehand). Then export the
+org file to reveal.js (this is by default bound to the keychord =C-c C-e R R=).
+
+If you are not a Emacs user, then just install Emacs and execute:
+#+begin_src bash
+emacs monolith-vs-swarm.org -Q --batch -l export-init.el -f org-reveal-export-to-html --kill
+#+end_src

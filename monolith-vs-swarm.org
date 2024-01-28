@@ -1,0 +1,256 @@
+# -*- org-confirm-babel-evaluate: nil; -*-
+#+AUTHOR: Dan Čermák
+#+DATE: February 4, 2024
+#+EMAIL: dcermak@suse.com
+#+TITLE: The Monolith versus The Swarm
+#+SUBTITLE: A comparison of openSUSE's and Fedora's build infrastructure
+
+#+REVEAL_ROOT: ./node_modules/reveal.js/
+#+REVEAL_THEME: simple
+#+REVEAL_PLUGINS: (highlight notes history)
+#+OPTIONS: toc:nil
+#+REVEAL_DEFAULT_FRAG_STYLE: appear
+#+REVEAL_INIT_OPTIONS: transition: 'none', hash: true
+#+OPTIONS: num:nil toc:nil center:nil reveal_title_slide:nil
+#+REVEAL_EXTRA_CSS: ./node_modules/@fortawesome/fontawesome-free/css/all.min.css
+#+REVEAL_EXTRA_CSS: ./custom-style.css
+#+REVEAL_HIGHLIGHT_CSS: ./node_modules/reveal.js/plugin/highlight/zenburn.css
+
+#+REVEAL_TITLE_SLIDE: <h2 class="title">%t</h2>
+#+REVEAL_TITLE_SLIDE: <p class="subtitle" style="color: Gray;">%s</p>
+#+REVEAL_TITLE_SLIDE: <p class="author">%a</p>
+#+REVEAL_TITLE_SLIDE: <div style="float:left"><a href="https://fosdem.org/2024/" target="_blank"><img src="./media/FOSDEM_logo.svg" height="50px" style="margin-bottom:-12px"/> FOSDEM 2024</a></div>
+#+REVEAL_TITLE_SLIDE: <div style="float:right;font-size:35px;"><p xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#"><a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">
+#+REVEAL_TITLE_SLIDE: CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-commons-by"></i></a></p></div>
+
+* who -u
+
+Dan Čermák
+
+@@html: <div style="float:center">@@
+@@html: <table class="who-table">@@
+@@html: <tr><td><i class="fab fa-suse"></i></td><td> Software Developer @SUSE</td></tr>@@
+@@html: <tr><td><i class="fab fa-fedora"></i></td><td> i3 SIG, Package maintainer</td></tr>@@
+@@html: <tr><td><i class="far fa-heart"></i></td><td> Developer Tools, Testing and Documentation, Home Automation</td></tr>@@
+@@html: <tr></tr>@@
+@@html: <tr></tr>@@
+@@html: <tr><td><i class="fa-solid fa-globe"></i></td><td> <a href="https://dancermak.name/">https://dancermak.name</a></td></tr>@@
+@@html: <tr><td><i class="fab fa-github"></i></td><td> <a href="https://github.com/dcermak/">dcermak</a> </td></tr>@@
+@@html: <tr><td><i class="fab fa-mastodon"></i></td><td> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a></td></tr>@@
+@@html: </table>@@
+@@html: </div>@@
+
+* Why?
+
+#+ATTR_REVEAL: :frag (appear)
+- very similar distributions, but no shared ancestry
+- vastly different build systems
+- learn from each other?
+
+* Parts of a Build System
+
+#+begin_notes
+- RPM building
+- repository assembly
+- image/container build
+- publishing
+- package monitoring
+- source control
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/linux-distro-build-pipeline.svg"/>@@
+
+
+* The Monolith
+
+The Open Build Service
+
+#+ATTR_REVEAL: :frag (appear)
+- distro building swiss army knife
+- can build RPMs, DEBs, Arch tar.xz, containers, VMs, ...
+- automated rebuilds on transitive dependency changes
+- built-in publisher
+- custom version control system
+- staging area, submit requests
+
+
+** History
+
+#+ATTR_REVEAL: :frag (appear)
+- replacement of autobuild
+- first design phase in late 2005
+- introduced to Factory in 2009
+
+
+** Overview
+
+@@html:<img src="./media/obs-overview.svg"/>@@
+
+
+** Projects and packages
+
+@@html:<img src="./media/obs-devel:microos.png"/>@@
+
+#+REVEAL: split
+
+@@html:<img src="./media/obs-architecture.svg"/>@@
+
+#+REVEAL: split
+
+@@html:<img src="./media/obs-cross-project.svg"/>@@
+
+
+** Version Control
+
+#+ATTR_REVEAL: :frag (appear)
+- completely custom
+- =osc= cli mimics subversion
+- no subfolders or branches
+- branching creates new projects with a =_link=
+
+
+** =prjconf=
+
+#+begin_notes
+- set stuff like repo types (rpm, docker, image, etc.)
+  or build flags
+- allows to completely override all macros \Rightarrow in Fedora that's done via
+  =redhat-rpm-config= & =srpm-*-macros-*= packages
+  \Rightarrow much more flexibility per project
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear appear) :frag_idx (1 2)
+- configure project building & publishing
+- tweak macros & dependencies of a project
+
+#+ATTR_REVEAL: :frag appear :frag_idx 3
+#+begin_src
+Macros:
+%suse_version 1699
+%is_opensuse 1
+%skelcd_compat 0
+%build_ldflags %{?_lto_cflags}
+:Macros
+#+end_src
+
+
+** Submitrequests
+
+@@html:<img src="media/obs-submitrequest.png"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+- send changes of a forked (aka "branched") package
+- send new packages into projects
+
+
+* The Swarm
+
+@@html:<img src="media/The_Zerg_swarm.png"/ height="500px">@@
+
+** Pagure
+
+@@html:<img src="media/Overview-pagure-Pagure.io.png" height="300px"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+- FLOSS git forge written in Python using Flask
+- every package has repositories for: source code, wiki, issues + pull requests, metadata of PRs
+- remote pull request support
+
+** Koji
+
+#+ATTR_REVEAL: :frag (appear)
+- RPM build system using mock
+- per target build root
+- rebuilds SRPM, then per arch build
+- builds on all *all* arches must succeed for build success
+- only *one* real build per NEVR can exist
+- builds persist *for ever*
+- builds can be fully replayed
+- side tags, buildroot overrides
+
+** Pungi
+
+# https://docs.pagure.org/pungi/_images/phases.svg
+@@html:<img src="./media/pungi-phases.svg"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+- repository composition/assembler
+- 
+
+** Image Building
+
+#+ATTR_REVEAL: :frag (appear)
+1. OSBS
+2. ImageFactory
+3. kiwi + koji
+4. osbuild
+
+
+** MBS
+
+#+ATTR_REVEAL: :frag (appear)
+let's not talk about this one 🙊
+
+** Koschei
+
+#+ATTR_REVEAL: :frag (appear)
+- 
+
+** Bodhi
+
+#+ATTR_REVEAL: :frag (appear)
+- update testing facility
+- 
+
+
+** Fedora Messaging
+
+aka "the glue"
+
+- AMQP based messaging bus
+- each 
+  
+
+* The Good
+
+@@html:<i class="fa-brands fa-opensuse"></i>@@
+- very flexible
+- "easy" to cary out large scale changes
+- 
+
+@@html:<i class="fa-brands fa-fedora"></i>@@
+- individual systems very easy
+- easy to extend
+
+
+* The Bad
+
+
+* The Ugly
+
+@@html:<i class="fa-brands fa-opensuse"></i>@@
+- hard to extend
+- Perl
+
+
+* Advantages of each
+
+** For newcomers
+
+| openSUSE                  | Fedora               |
+|---------------------------+----------------------|
+| - everything in one place | - tools mostly known |
+|                           |                      |
+|                           |                      |
+|                           |                      |
+
+** Extensibility
+
+
+
+
+* Questions?
+
+#+ATTR_REVEAL: :frag (appear)
+Answers!
