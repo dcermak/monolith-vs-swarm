@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>The Monolith versus The Swarm</title>
+<meta name="author" content="Dan Čermák"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="./node_modules/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="./node_modules/reveal.js/dist/theme/simple.css" id="theme"/>
+
+<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css"/>
+
+<link rel="stylesheet" href="./custom-style.css"/>
+<link rel="stylesheet" href="./node_modules/reveal.js/plugin/highlight/zenburn.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = './node_modules/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h2 class="title">The Monolith versus The Swarm</h2>
+<p class="subtitle" style="color: Gray;">A comparison of openSUSE's and Fedora's build infrastructure</p>
+<p class="author">Dan Čermák</p>
+<div style="float:left"><a href="https://fosdem.org/2024/" target="_blank"><img src="./media/FOSDEM_logo.svg" height="50px" style="margin-bottom:-12px"/> FOSDEM 2024</a></div>
+<div style="float:right;font-size:35px;"><p xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#"><a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">
+CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-commons-by"></i></a></p></div>
+</section>
+
+<section>
+<section id="slide-org4f4bf9a">
+<h2 id="org4f4bf9a">who -u</h2>
+<p>
+Dan Čermák
+</p>
+
+<p>
+ <div style="float:center">
+ <table class="who-table">
+ <tr><td><i class="fab fa-suse"></i></td><td> Software Developer @SUSE</td></tr>
+ <tr><td><i class="fab fa-fedora"></i></td><td> i3 SIG, Package maintainer</td></tr>
+ <tr><td><i class="far fa-heart"></i></td><td> Developer Tools, Testing and Documentation, Home Automation</td></tr>
+ <tr></tr>
+ <tr></tr>
+ <tr><td><i class="fa-solid fa-globe"></i></td><td> <a href="https://dancermak.name/">https://dancermak.name</a></td></tr>
+ <tr><td><i class="fab fa-github"></i></td><td> <a href="https://github.com/dcermak/">dcermak</a> </td></tr>
+ <tr><td><i class="fab fa-mastodon"></i></td><td> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a></td></tr>
+ </table>
+ </div>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org3b05ebc">
+<h2 id="org3b05ebc">Why?</h2>
+<ul>
+<li class="fragment appear">very similar distributions, but no shared ancestry</li>
+<li class="fragment appear">vastly different build systems</li>
+<li class="fragment appear">learn from each other?</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org6c1b9a1">
+<h2 id="org6c1b9a1">Parts of a Build System</h2>
+<aside class="notes">
+<ul>
+<li>RPM building</li>
+<li>repository assembly</li>
+<li>image/container build</li>
+<li>publishing</li>
+<li>package monitoring</li>
+<li>source control</li>
+
+</ul>
+
+</aside>
+
+<p class="fragment (appear)">
+<img src="./media/linux-distro-build-pipeline.svg"/>
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgd946d5e">
+<h2 id="orgd946d5e">The Monolith</h2>
+<p>
+The Open Build Service
+</p>
+
+<ul>
+<li class="fragment appear">distro building swiss army knife</li>
+<li class="fragment appear">can build RPMs, DEBs, Arch tar.xz, containers, VMs, &#x2026;</li>
+<li class="fragment appear">automated rebuilds on transitive dependency changes</li>
+<li class="fragment appear">built-in publisher</li>
+<li class="fragment appear">custom version control system</li>
+<li class="fragment appear">staging area, submit requests</li>
+
+</ul>
+
+
+</section>
+<section id="slide-orgb07cbcb">
+<h3 id="orgb07cbcb">History</h3>
+<ul>
+<li class="fragment appear">replacement of autobuild</li>
+<li class="fragment appear">first design phase in late 2005</li>
+<li class="fragment appear">introduced to Factory in 2009</li>
+
+</ul>
+
+
+</section>
+<section id="slide-orgf76021f">
+<h3 id="orgf76021f">Overview</h3>
+<p>
+<img src="./media/obs-overview.svg"/>
+</p>
+
+
+</section>
+<section id="slide-org2820076">
+<h3 id="org2820076">Projects and packages</h3>
+<p>
+<img src="./media/obs-devel_microos.png"/>
+</p>
+
+</section>
+<section id="slide-org2820076-split">
+
+<p>
+<img src="./media/obs-architecture.svg"/>
+</p>
+
+</section>
+<section id="slide-org2820076-split">
+
+<p>
+<img src="./media/obs-cross-project.svg"/>
+</p>
+
+
+</section>
+<section id="slide-org65368bc">
+<h3 id="org65368bc">Version Control</h3>
+<ul>
+<li class="fragment appear">completely custom</li>
+<li class="fragment appear"><code>osc</code> cli mimics subversion</li>
+<li class="fragment appear">no subfolders or branches</li>
+<li class="fragment appear">branching creates new projects with a <code>_link</code></li>
+
+</ul>
+
+
+</section>
+<section id="slide-orgbc73565">
+<h3 id="orgbc73565"><code>prjconf</code></h3>
+<aside class="notes">
+<ul>
+<li>set stuff like repo types (rpm, docker, image, etc.)
+or build flags</li>
+<li>allows to completely override all macros &rArr; in Fedora that's done via
+<code>redhat-rpm-config</code> &amp; <code>srpm-*-macros-*</code> packages
+&rArr; much more flexibility per project</li>
+
+</ul>
+
+</aside>
+
+<ul>
+<li data-fragment-index="1" class="fragment appear">configure project building &amp; publishing</li>
+<li data-fragment-index="2" class="fragment appear">tweak macros &amp; dependencies of a project</li>
+
+</ul>
+
+<pre  class="fragment appear" data-fragment-index="3" >
+Macros:
+%suse_version 1699
+%is_opensuse 1
+%skelcd_compat 0
+%build_ldflags %{?_lto_cflags}
+:Macros
+</pre>
+
+
+</section>
+<section id="slide-orga2cbf5b">
+<h3 id="orga2cbf5b">Submitrequests</h3>
+<p>
+<img src="media/obs-submitrequest.png"/>
+</p>
+
+<ul>
+<li class="fragment appear">send changes of a forked (aka "branched") package</li>
+<li class="fragment appear">send new packages into projects</li>
+
+</ul>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org2b4bfc5">
+<h2 id="org2b4bfc5">The Swarm</h2>
+<p>
+<img src="media/The_Zerg_swarm.png"/ height="500px">
+</p>
+
+</section>
+<section id="slide-org8e59aa4">
+<h3 id="org8e59aa4">Pagure</h3>
+<p>
+<img src="media/Overview-pagure-Pagure.io.png" height="300px"/>
+</p>
+
+<ul>
+<li class="fragment appear">FLOSS git forge written in Python using Flask</li>
+<li class="fragment appear">every package has repositories for: source code, wiki, issues + pull requests, metadata of PRs</li>
+<li class="fragment appear">remote pull request support</li>
+
+</ul>
+
+</section>
+<section id="slide-org318df6b">
+<h3 id="org318df6b">Koji</h3>
+<ul>
+<li class="fragment appear">RPM build system using mock</li>
+<li class="fragment appear">per target build root</li>
+<li class="fragment appear">rebuilds SRPM, then per arch build</li>
+<li class="fragment appear">builds on all <b>all</b> arches must succeed for build success</li>
+<li class="fragment appear">only <b>one</b> real build per NEVR can exist</li>
+<li class="fragment appear">builds persist <b>for ever</b></li>
+<li class="fragment appear">builds can be fully replayed</li>
+<li class="fragment appear">side tags, buildroot overrides</li>
+
+</ul>
+
+</section>
+<section id="slide-org02596a1">
+<h3 id="org02596a1">Pungi</h3>
+<p>
+<img src="./media/pungi-phases.svg"/>
+</p>
+
+<ul>
+<li class="fragment appear">repository composition/assembler</li>
+<li class="fragment appear"></li>
+
+</ul>
+
+</section>
+<section id="slide-orgd9e0f93">
+<h3 id="orgd9e0f93">Image Building</h3>
+<ol>
+<li class="fragment appear">OSBS</li>
+<li class="fragment appear">ImageFactory</li>
+<li class="fragment appear">kiwi + koji</li>
+<li class="fragment appear">osbuild</li>
+
+</ol>
+
+
+</section>
+<section id="slide-orgf076a6d">
+<h3 id="orgf076a6d">MBS</h3>
+<p class="fragment (appear)">
+let's not talk about this one 🙊
+</p>
+
+</section>
+<section id="slide-org14dbee7">
+<h3 id="org14dbee7">Koschei</h3>
+<ul>
+<li class="fragment appear"></li>
+
+</ul>
+
+</section>
+<section id="slide-org0349ced">
+<h3 id="org0349ced">Bodhi</h3>
+<ul>
+<li class="fragment appear">update testing facility</li>
+<li class="fragment appear"></li>
+
+</ul>
+
+
+</section>
+<section id="slide-org87f5e2a">
+<h3 id="org87f5e2a">Fedora Messaging</h3>
+<p>
+aka "the glue"
+</p>
+
+<ul>
+<li>AMQP based messaging bus</li>
+<li>each</li>
+
+</ul>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgcc1cbc3">
+<h2 id="orgcc1cbc3">The Good</h2>
+<p>
+<i class="fa-brands fa-opensuse"></i>
+</p>
+<ul>
+<li>very flexible</li>
+<li>"easy" to cary out large scale changes</li>
+<li></li>
+
+</ul>
+
+<p>
+<i class="fa-brands fa-fedora"></i>
+</p>
+<ul>
+<li>individual systems very easy</li>
+<li>easy to extend</li>
+
+</ul>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orge6f4bfd">
+<h2 id="orge6f4bfd">The Bad</h2>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org86e575b">
+<h2 id="org86e575b">The Ugly</h2>
+<p>
+<i class="fa-brands fa-opensuse"></i>
+</p>
+<ul>
+<li>hard to extend</li>
+<li>Perl</li>
+
+</ul>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org112342b">
+<h2 id="org112342b">Advantages of each</h2>
+<div class="outline-text-2" id="text-org112342b">
+</div>
+</section>
+<section id="slide-orgd4e68c8">
+<h3 id="orgd4e68c8">For newcomers</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">openSUSE</th>
+<th scope="col" class="org-left">Fedora</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">- everything in one place</td>
+<td class="org-left">- tools mostly known</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+<section id="slide-org75990c4">
+<h3 id="org75990c4">Extensibility</h3>
+
+
+
+
+</section>
+</section>
+<section>
+<section id="slide-org64897bc">
+<h2 id="org64897bc">Questions?</h2>
+<p class="fragment (appear)">
+Answers!
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="./node_modules/reveal.js/dist/reveal.js"></script>
+<script src="./node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+<script src="./node_modules/reveal.js/plugin/notes/notes.js"></script>
+
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+plugins: [RevealHighlight, RevealNotes, history],
+transition: 'none', hash: true
+});
+
+</script>
+</body>
+</html>
