@@ -126,10 +126,11 @@ The Open Build Service
 
 #+ATTR_REVEAL: :frag appear :frag_idx 3
 #+begin_src
+BuildFlags: sbom:spdx
+PublishFlags: withsbom
 Macros:
 %suse_version 1699
 %is_opensuse 1
-%skelcd_compat 0
 %build_ldflags %{?_lto_cflags}
 :Macros
 #+end_src
@@ -137,7 +138,7 @@ Macros:
 
 ** Submitrequests
 
-@@html:<img src="media/obs-submitrequest.png"/>@@
+@@html:<img src="media/obs-submitrequest.png" height="400px"/>@@
 
 #+ATTR_REVEAL: :frag (appear)
 - send changes of a forked (aka "branched") package
@@ -175,8 +176,9 @@ Macros:
 @@html:<img src="./media/pungi-phases.svg"/>@@
 
 #+ATTR_REVEAL: :frag (appear)
-- repository composition/assembler
-- 
+- distribution composition tool
+- assemble repos
+
 
 ** Image Building
 
@@ -192,62 +194,74 @@ Macros:
 #+ATTR_REVEAL: :frag (appear)
 let's not talk about this one 🙊
 
+
 ** Koschei
 
+@@html:<img src="./media/koschei-emacs.png"/>@@
+
 #+ATTR_REVEAL: :frag (appear)
-- 
+- dependency & build tracker
+- runs koji scratch builds
+
 
 ** Bodhi
 
+@@html:<img src="./media/bodhi-emacs-update.png" height="300px"/>@@
+
 #+ATTR_REVEAL: :frag (appear)
 - update testing facility
-- 
+- vote on updates
+- gate Rawhide
 
 
-** Fedora Messaging
+** Fedora Messaging & Notifications
 
-aka "the glue"
+#+ATTR_REVEAL: :frag (appear)
+- @@html:<i class="fa-brands fa-fedora"></i>@@: AMQP based messaging bus
+- feeds Fedora Message Notifications ([[https://github.com/fedora-infra/fmn][FMN]])
 
-- AMQP based messaging bus
-- each 
-  
 
-* The Good
+* The Good, The Bad and The Ugly
+
+** The Good
 
 @@html:<i class="fa-brands fa-opensuse"></i>@@
 - very flexible
 - "easy" to cary out large scale changes
-- 
+- *one* place for everything
 
 @@html:<i class="fa-brands fa-fedora"></i>@@
-- individual systems very easy
+- simple individual systems
 - easy to extend
 
 
-* The Bad
+** The Bad
 
-
-* The Ugly
+- the documentation
 
 @@html:<i class="fa-brands fa-opensuse"></i>@@
+- the version control
+- handling of "stable" distributions
+
+@@html:<i class="fa-brands fa-fedora"></i>@@
+- no automatic rebuilds
+
+
+** The Ugly
+
+@@html:<i class="fa-brands fa-opensuse"></i>@@
+- complexity & edge cases
 - hard to extend
-- Perl
+
+@@html:<i class="fa-brands fa-fedora"></i>@@
+- too many systems
+- duplication
 
 
-* Advantages of each
+* Who's better?
 
-** For newcomers
-
-| openSUSE                  | Fedora               |
-|---------------------------+----------------------|
-| - everything in one place | - tools mostly known |
-|                           |                      |
-|                           |                      |
-|                           |                      |
-
-** Extensibility
-
-
+#+ATTR_REVEAL: :frag (appear)
+- both setups suck in their own ways
 
 
 * Questions?
