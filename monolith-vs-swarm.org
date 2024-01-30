@@ -103,9 +103,12 @@ The Open Build Service
 
 ** Version Control
 
+#+begin_notes
+- custom via XML API
+#+end_notes
+
 #+ATTR_REVEAL: :frag (appear)
-- completely custom
-- =osc= cli mimics subversion
+- =osc= mimics subversion
 - no subfolders or branches
 - branching creates new projects with a =_link=
 
@@ -151,33 +154,55 @@ Macros:
 
 ** Pagure
 
+#+begin_notes
+- mostly Python: Flask + pygit, some perl for SSH
+- issue & PRs are saved in another repo
+- wiki is a repo
+  \Rightarrow full migration between instances possible
+- integrations not there
+- development is very slow atm
+- remote pull request support
+#+end_notes
+
 @@html:<img src="media/Overview-pagure-Pagure.io.png" height="300px"/>@@
 
 #+ATTR_REVEAL: :frag (appear)
-- FLOSS git forge written in Python using Flask
+- FLOSS git forge written in Python using Flask + PyGit
 - every package has repositories for: source code, wiki, issues + pull requests, metadata of PRs
-- remote pull request support
 
 ** Koji
 
-#+ATTR_REVEAL: :frag (appear)
-- RPM build system using mock
-- per target build root
+#+begin_notes
+- mock for building -> can be cheap
 - rebuilds SRPM, then per arch build
+
+- per target build root
 - builds on all *all* arches must succeed for build success
-- only *one* real build per NEVR can exist
-- builds persist *for ever*
+
 - builds can be fully replayed
 - side tags, buildroot overrides
+- nowadays integration with dist-git
+#+end_notes
+
+@@html:<img src="./media/koji-i3-build.png"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+- RPM build system using mock
+- only *one* production build per NEVR can exist
+- builds persist *for ever*
+
 
 ** Pungi
+#+begin_notes
+- assemble repos before image build
+- nothing like this exactly in obs
+#+end_notes
 
 # https://docs.pagure.org/pungi/_images/phases.svg
 @@html:<img src="./media/pungi-phases.svg"/>@@
 
 #+ATTR_REVEAL: :frag (appear)
-- distribution composition tool
-- assemble repos
+distribution composition tool
 
 
 ** Image Building
@@ -237,17 +262,26 @@ let's not talk about this one 🙊
 
 ** The Bad
 
+#+begin_notes
+- getting started 
+#+end_notes
+
 - the documentation
 
 @@html:<i class="fa-brands fa-opensuse"></i>@@
 - the version control
 - handling of "stable" distributions
+- =Unresolvable: have choice for=
 
 @@html:<i class="fa-brands fa-fedora"></i>@@
 - no automatic rebuilds
 
 
 ** The Ugly
+
+#+begin_notes
+ugly Fedora example: deltarpm
+#+end_notes
 
 @@html:<i class="fa-brands fa-opensuse"></i>@@
 - complexity & edge cases
@@ -262,6 +296,9 @@ let's not talk about this one 🙊
 
 #+ATTR_REVEAL: :frag (appear)
 - both setups suck in their own ways
+- monolith: one place to rule them all
+- swarm: 
+
 
 
 * Questions?
