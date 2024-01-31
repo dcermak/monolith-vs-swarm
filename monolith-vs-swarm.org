@@ -231,7 +231,7 @@ let's not talk about this one 🙊
 
 ** Bodhi
 
-@@html:<img src="./media/bodhi-emacs-update.png" height="300px"/>@@
+@@html:<img src="./media/bodhi-emacs-update.png" height="350px"/>@@
 
 #+ATTR_REVEAL: :frag (appear)
 - update testing facility
@@ -241,14 +241,20 @@ let's not talk about this one 🙊
 
 ** Fedora Messaging & Notifications
 
-#+ATTR_REVEAL: :frag (appear)
-- @@html:<i class="fa-brands fa-fedora"></i>@@: AMQP based messaging bus
+#+ATTR_REVEAL: :frag (appear appear) :frag_idx (1 2)
+- @@html:<i class="fa-brands fa-fedora"></i>@@ messaging: AMQP based messaging bus
 - feeds Fedora Message Notifications ([[https://github.com/fedora-infra/fmn][FMN]])
+
+@@html:<img src="./media/fedora-notifications-on-matrix.png" class="fragment appear" data-fragment-index="3"/>@@
 
 
 * The Good, The Bad and The Ugly
 
 ** The Good
+
+#+begin_notes
+- OBS very friendly for expert contributors
+#+end_notes
 
 @@html:<i class="fa-brands fa-opensuse"></i>@@
 - very flexible
