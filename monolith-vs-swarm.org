@@ -29,7 +29,7 @@ Dan Čermák
 
 @@html: <div style="float:center">@@
 @@html: <table class="who-table">@@
-@@html: <tr><td><i class="fab fa-suse"></i></td><td> Software Developer @SUSE</td></tr>@@
+@@html: <tr><td><i class="fab fa-suse"></i></td><td> Software Developer @SUSE, SLE BCI releng</td></tr>@@
 @@html: <tr><td><i class="fab fa-fedora"></i></td><td> i3 SIG, Package maintainer</td></tr>@@
 @@html: <tr><td><i class="far fa-heart"></i></td><td> Developer Tools, Testing and Documentation, Home Automation</td></tr>@@
 @@html: <tr></tr>@@
@@ -63,6 +63,16 @@ Dan Čermák
 
 
 * The Monolith
+#+begin_notes
+history:
+- replacement of autobuild
+- first design phase in late 2005
+- introduced to Factory in 2009
+
+additional features:
+- built-in publisher
+- submit requests
+#+end_notes
 
 The Open Build Service
 
@@ -70,17 +80,8 @@ The Open Build Service
 - distro building swiss army knife
 - can build RPMs, DEBs, Arch tar.xz, containers, VMs, ...
 - automated rebuilds on transitive dependency changes
-- built-in publisher
 - custom version control system
-- staging area, submit requests
-
-
-** History
-
-#+ATTR_REVEAL: :frag (appear)
-- replacement of autobuild
-- first design phase in late 2005
-- introduced to Factory in 2009
+- staging area
 
 
 ** Overview
@@ -196,6 +197,7 @@ Macros:
 #+begin_notes
 - assemble repos before image build
 - nothing like this exactly in obs
+  repo assembly + image build are split \Rightarrow leads to interesting issues
 #+end_notes
 
 # https://docs.pagure.org/pungi/_images/phases.svg
@@ -205,7 +207,7 @@ Macros:
 distribution composition tool
 
 
-** Image Building
+** Image & Container Building
 
 #+ATTR_REVEAL: :frag (appear)
 1. OSBS
@@ -258,7 +260,7 @@ let's not talk about this one 🙊
 
 @@html:<i class="fa-brands fa-opensuse"></i>@@
 - very flexible
-- "easy" to cary out large scale changes
+- "easy" to carry out large scale changes
 - *one* place for everything
 
 @@html:<i class="fa-brands fa-fedora"></i>@@
@@ -269,10 +271,10 @@ let's not talk about this one 🙊
 ** The Bad
 
 #+begin_notes
-- getting started 
+- getting started sucks universally
 #+end_notes
 
-- the documentation
+- getting started
 
 @@html:<i class="fa-brands fa-opensuse"></i>@@
 - the version control
@@ -281,12 +283,14 @@ let's not talk about this one 🙊
 
 @@html:<i class="fa-brands fa-fedora"></i>@@
 - no automatic rebuilds
+- "misuse" of systems
 
 
 ** The Ugly
 
 #+begin_notes
 ugly Fedora example: deltarpm
+ugly OBS: git packaging
 #+end_notes
 
 @@html:<i class="fa-brands fa-opensuse"></i>@@
@@ -300,10 +304,13 @@ ugly Fedora example: deltarpm
 
 * Who's better?
 
+#+begin_notes
+- opensuse: great for rolling + devel
+- fedora: great for stable distro
+#+end_notes
+
 #+ATTR_REVEAL: :frag (appear)
 - both setups suck in their own ways
-- monolith: one place to rule them all
-- swarm: 
 
 
 
