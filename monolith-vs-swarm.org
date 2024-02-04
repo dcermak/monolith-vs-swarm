@@ -267,12 +267,18 @@ let's not talk about this one 🙊
 - OBS very friendly for expert contributors
 #+end_notes
 
+#+ATTR_REVEAL: :frag (appear)
 @@html:<i class="fa-brands fa-opensuse"></i>@@
+
+#+ATTR_REVEAL: :frag (appear)
 - very flexible
 - "easy" to carry out large scale changes
 - *one* place for everything
 
+#+ATTR_REVEAL: :frag (appear)
 @@html:<i class="fa-brands fa-fedora"></i>@@
+
+#+ATTR_REVEAL: :frag (appear)
 - simple individual systems
 - easy to extend
 
@@ -283,14 +289,21 @@ let's not talk about this one 🙊
 - getting started sucks universally
 #+end_notes
 
+#+ATTR_REVEAL: :frag (appear)
 - getting started
 
+#+ATTR_REVEAL: :frag (appear)
 @@html:<i class="fa-brands fa-opensuse"></i>@@
+
+#+ATTR_REVEAL: :frag (appear)
 - the version control
 - handling of "stable" distributions
 - =Unresolvable: have choice for=
 
+#+ATTR_REVEAL: :frag (appear)
 @@html:<i class="fa-brands fa-fedora"></i>@@
+
+#+ATTR_REVEAL: :frag (appear)
 - no automatic rebuilds
 - "misuse" of systems
 
@@ -302,12 +315,18 @@ ugly Fedora example: deltarpm
 ugly OBS: git packaging
 #+end_notes
 
+#+ATTR_REVEAL: :frag (appear)
 @@html:<i class="fa-brands fa-opensuse"></i>@@
+
+#+ATTR_REVEAL: :frag (appear)
 - complexity & edge cases
 - hard to extend
 
+#+ATTR_REVEAL: :frag (appear)
 @@html:<i class="fa-brands fa-fedora"></i>@@
-- too many systems
+
+#+ATTR_REVEAL: :frag (appear)
+- too many systems + glue
 - duplication
 
 
