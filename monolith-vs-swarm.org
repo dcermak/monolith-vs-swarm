@@ -339,7 +339,9 @@ ugly OBS: git packaging
 
 #+ATTR_REVEAL: :frag (appear)
 - both setups suck in their own ways
-
+- development \rightarrow OBS
+- "stable" distribution \rightarrow Fedora
+- development & stable? 🤷
 
 
 * Questions?
