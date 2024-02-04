@@ -250,6 +250,15 @@ let's not talk about this one 🙊
 @@html:<img src="./media/fedora-notifications-on-matrix.png" class="fragment appear" data-fragment-index="3"/>@@
 
 
+** What about COPR?
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/copr.png"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+- community build system
+
+
 * The Good, The Bad and The Ugly
 
 ** The Good
