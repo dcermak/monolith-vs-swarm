@@ -39,8 +39,8 @@
 CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-commons-by"></i></a></p></div>
 </section>
 <section>
-<section id="slide-org8c59d09">
-<h2 id="org8c59d09">who -u</h2>
+<section id="slide-orgfad3e09">
+<h2 id="orgfad3e09">who -u</h2>
 <p>
 Dan Čermák
 </p>
@@ -62,8 +62,8 @@ Dan Čermák
 </section>
 </section>
 <section>
-<section id="slide-org233c7b6">
-<h2 id="org233c7b6">Why?</h2>
+<section id="slide-orgb3d1e64">
+<h2 id="orgb3d1e64">Why?</h2>
 <ul>
 <li class="fragment appear">very similar distributions, but no shared ancestry</li>
 <li class="fragment appear">vastly different build systems</li>
@@ -73,8 +73,8 @@ Dan Čermák
 </section>
 </section>
 <section>
-<section id="slide-orga5be451">
-<h2 id="orga5be451">Parts of a Build System</h2>
+<section id="slide-org28a9499">
+<h2 id="org28a9499">Parts of a Build System</h2>
 <aside class="notes">
 <ul>
 <li>RPM building</li>
@@ -94,8 +94,8 @@ Dan Čermák
 </section>
 </section>
 <section>
-<section id="slide-org5ee5304">
-<h2 id="org5ee5304">The Monolith</h2>
+<section id="slide-org98856d1">
+<h2 id="org98856d1">The Monolith</h2>
 <aside class="notes">
 <p>
 history:
@@ -131,34 +131,34 @@ The Open Build Service
 
 </ul>
 </section>
-<section id="slide-orgc24efe6">
-<h3 id="orgc24efe6">Overview</h3>
+<section id="slide-org4246fbe">
+<h3 id="org4246fbe">Overview</h3>
 <p>
 <img src="./media/obs-overview.svg"/>
 </p>
 </section>
-<section id="slide-org1e0fecc">
-<h3 id="org1e0fecc">Projects and packages</h3>
+<section id="slide-orge323dee">
+<h3 id="orge323dee">Projects and packages</h3>
 <p>
 <img src="./media/obs-devel_microos.png"/>
 </p>
 
 </section>
-<section id="slide-org1e0fecc-split">
+<section id="slide-orge323dee-split">
 
 <p>
 <img src="./media/obs-architecture.svg"/>
 </p>
 
 </section>
-<section id="slide-org1e0fecc-split">
+<section id="slide-orge323dee-split">
 
 <p>
 <img src="./media/obs-cross-project.svg"/>
 </p>
 </section>
-<section id="slide-org4fb7c40">
-<h3 id="org4fb7c40">Version Control</h3>
+<section id="slide-orga2dbc52">
+<h3 id="orga2dbc52">Version Control</h3>
 <aside class="notes">
 <ul>
 <li>custom via XML API</li>
@@ -174,8 +174,8 @@ The Open Build Service
 
 </ul>
 </section>
-<section id="slide-org4b97c31">
-<h3 id="org4b97c31"><code>prjconf</code></h3>
+<section id="slide-orgffe422a">
+<h3 id="orgffe422a"><code>prjconf</code></h3>
 <aside class="notes">
 <ul>
 <li>set stuff like repo types (rpm, docker, image, etc.)
@@ -204,8 +204,8 @@ Macros:
 :Macros
 </pre>
 </section>
-<section id="slide-orgee805dd">
-<h3 id="orgee805dd">Submitrequests</h3>
+<section id="slide-org602ee52">
+<h3 id="org602ee52">Submitrequests</h3>
 <p>
 <img src="media/obs-submitrequest.png" height="400px"/>
 </p>
@@ -218,14 +218,14 @@ Macros:
 </section>
 </section>
 <section>
-<section id="slide-org6f44b52">
-<h2 id="org6f44b52">The Swarm</h2>
+<section id="slide-org2737828">
+<h2 id="org2737828">The Swarm</h2>
 <p>
 <img src="media/The_Zerg_swarm.png"/ height="500px">
 </p>
 </section>
-<section id="slide-org03cca56">
-<h3 id="org03cca56">Pagure</h3>
+<section id="slide-orgdc518af">
+<h3 id="orgdc518af">Pagure</h3>
 <aside class="notes">
 <ul>
 <li>mostly Python: Flask + pygit, some perl for SSH</li>
@@ -250,8 +250,8 @@ Macros:
 
 </ul>
 </section>
-<section id="slide-orgeea58e2">
-<h3 id="orgeea58e2">Koji</h3>
+<section id="slide-org88afcb6">
+<h3 id="org88afcb6">Koji</h3>
 <aside class="notes">
 <ul>
 <li>mock for building -&gt; can be cheap</li>
@@ -279,8 +279,8 @@ Macros:
 
 </ul>
 </section>
-<section id="slide-orga5126cf">
-<h3 id="orga5126cf">Pungi</h3>
+<section id="slide-org7833c44">
+<h3 id="org7833c44">Pungi</h3>
 <aside class="notes">
 <ul>
 <li>assemble repos before image build</li>
@@ -299,8 +299,8 @@ repo assembly + image build are split &rArr; leads to interesting issues</li>
 distribution composition tool
 </p>
 </section>
-<section id="slide-org6b951c6">
-<h3 id="org6b951c6">Image &amp; Container Building</h3>
+<section id="slide-orgc690cc3">
+<h3 id="orgc690cc3">Image &amp; Container Building</h3>
 <ol>
 <li class="fragment appear">OSBS</li>
 <li class="fragment appear">ImageFactory</li>
@@ -309,14 +309,14 @@ distribution composition tool
 
 </ol>
 </section>
-<section id="slide-org7f3b8f5">
-<h3 id="org7f3b8f5">MBS</h3>
+<section id="slide-org1dd93ef">
+<h3 id="org1dd93ef">MBS</h3>
 <p class="fragment (appear)">
 let's not talk about this one 🙊
 </p>
 </section>
-<section id="slide-orgb637ad8">
-<h3 id="orgb637ad8">Koschei</h3>
+<section id="slide-orgcce1d7e">
+<h3 id="orgcce1d7e">Koschei</h3>
 <p>
 <img src="./media/koschei-emacs.png"/>
 </p>
@@ -327,8 +327,8 @@ let's not talk about this one 🙊
 
 </ul>
 </section>
-<section id="slide-org16a0282">
-<h3 id="org16a0282">Bodhi</h3>
+<section id="slide-orgfbcddb9">
+<h3 id="orgfbcddb9">Bodhi</h3>
 <p>
 <img src="./media/bodhi-emacs-update.png" height="350px"/>
 </p>
@@ -340,8 +340,8 @@ let's not talk about this one 🙊
 
 </ul>
 </section>
-<section id="slide-orgc76979b">
-<h3 id="orgc76979b">Fedora Messaging &amp; Notifications</h3>
+<section id="slide-org216af8d">
+<h3 id="org216af8d">Fedora Messaging &amp; Notifications</h3>
 <ul>
 <li data-fragment-index="1" class="fragment appear"><i class="fa-brands fa-fedora"></i> messaging: AMQP based messaging bus</li>
 <li data-fragment-index="2" class="fragment appear">feeds Fedora Message Notifications (<a href="https://github.com/fedora-infra/fmn">FMN</a>)</li>
@@ -352,8 +352,8 @@ let's not talk about this one 🙊
 <img src="./media/fedora-notifications-on-matrix.png" class="fragment appear" data-fragment-index="3"/>
 </p>
 </section>
-<section id="slide-org2030c50">
-<h3 id="org2030c50">What about COPR?</h3>
+<section id="slide-org0726a71">
+<h3 id="org0726a71">What about COPR?</h3>
 <p class="fragment (appear)">
 <img src="./media/copr.png"/>
 </p>
@@ -365,13 +365,13 @@ let's not talk about this one 🙊
 </section>
 </section>
 <section>
-<section id="slide-org2cb0b18">
-<h2 id="org2cb0b18">The Good, The Bad and The Ugly</h2>
-<div class="outline-text-2" id="text-org2cb0b18">
+<section id="slide-org5c5c326">
+<h2 id="org5c5c326">The Good, The Bad and The Ugly</h2>
+<div class="outline-text-2" id="text-org5c5c326">
 </div>
 </section>
-<section id="slide-org44aa707">
-<h3 id="org44aa707">The Good</h3>
+<section id="slide-org47cb421">
+<h3 id="org47cb421">The Good</h3>
 <aside class="notes">
 <ul>
 <li>OBS very friendly for expert contributors</li>
@@ -401,8 +401,8 @@ let's not talk about this one 🙊
 
 </ul>
 </section>
-<section id="slide-org9bd4c0e">
-<h3 id="org9bd4c0e">The Bad</h3>
+<section id="slide-org1e77a2d">
+<h3 id="org1e77a2d">The Bad</h3>
 <aside class="notes">
 <ul>
 <li>getting started sucks universally</li>
@@ -437,8 +437,8 @@ let's not talk about this one 🙊
 
 </ul>
 </section>
-<section id="slide-org4eef0ae">
-<h3 id="org4eef0ae">The Ugly</h3>
+<section id="slide-orgff6e29d">
+<h3 id="orgff6e29d">The Ugly</h3>
 <aside class="notes">
 <p>
 ugly Fedora example: deltarpm
@@ -469,8 +469,8 @@ ugly OBS: git packaging
 </section>
 </section>
 <section>
-<section id="slide-org7d9b954">
-<h2 id="org7d9b954">Who's better?</h2>
+<section id="slide-org91c9d35">
+<h2 id="org91c9d35">Who's better?</h2>
 <aside class="notes">
 <ul>
 <li>opensuse: great for rolling + devel</li>
@@ -490,8 +490,8 @@ ugly OBS: git packaging
 </section>
 </section>
 <section>
-<section id="slide-orgf938943">
-<h2 id="orgf938943">Questions?</h2>
+<section id="slide-org4226f97">
+<h2 id="org4226f97">Questions?</h2>
 <p class="fragment (appear)">
 Answers!
 </p>
